@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Audio Web App with Large Captions</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 60vw; /* 調整可能 */
+            max-width: 1000px; /* 必要に応じて最大幅を設定 */
+        }
+        .button-item {
+            text-align: center;
+        }
+        .button-item img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .button-item p {
+            margin-top: 8px;
+            font-size: 2rem; /* キャプションのサイズを大きくする */
+            font-weight: bold; /* 太字にすることでさらに視認性を向上 */
+            color: #333;
+            text-align: center; /* キャプションを中央揃えに */
+        }
+    </style>
+</head>
+<body>
+
+<div class="button-container">
+    <div class="button-item">
+        <img src="BodyWash.svg" alt="Body Wash" id="bodyWash">
+        <p>Body Wash</p>
+    </div>
+    <div class="button-item">
+        <img src="DoorClose.svg" alt="Door Close" id="doorClose">
+        <p>Door Close</p>
+    </div>
+    <div class="button-item">
+        <img src="DoorOpen.svg" alt="Door Open" id="doorOpen">
+        <p>Door Open</p>
+    </div>
+    <div class="button-item">
+        <img src="Help.svg" alt="Help" id="help">
+        <p>Help</p>
+    </div>
+    <div class="button-item">
+        <img src="Shower.svg" alt="Shower" id="shower">
+        <p>Shower</p>
+    </div>
+</div>
+
+<script>
+    const audioFiles = {
+        bodyWash: new Audio('BodyWash.mp3'),
+        doorClose: new Audio('DoorClose.mp3'),
+        doorOpen: new Audio('DoorOpen.mp3'),
+        help: new Audio('Help.mp3'),
+        shower: new Audio('Shower.mp3')
+    };
+
+    let isPlaying = false;
+
+    function playSound(audio) {
+        if (!isPlaying) {
+            isPlaying = true;
+            audio.play();
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    }
+
+    document.getElementById('bodyWash').addEventListener('click', () => playSound(audioFiles.bodyWash));
+    document.getElementById('doorClose').addEventListener('click', () => playSound(audioFiles.doorClose));
+    document.getElementById('doorOpen').addEventListener('click', () => playSound(audioFiles.doorOpen));
+    document.getElementById('help').addEventListener('click', () => playSound(audioFiles.help));
+    document.getElementById('shower').addEventListener('click', () => playSound(audioFiles.shower));
+
+</script>
+
+</body>
+</html>
